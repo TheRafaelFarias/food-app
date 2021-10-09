@@ -1,4 +1,3 @@
-import { Image } from "react-native";
 import styled from "styled-components/native";
 
 export const Container = styled.SafeAreaView`
@@ -7,8 +6,11 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const ContentContainer = styled.View`
-  margin-top: 20%;
+  /* margin-top: 5%; */
   align-items: center;
+  justify-content: space-between;
+  /* background-color: blue; */
+  height: 85%;
 `;
 
 export const Title = styled.Text`
@@ -19,14 +21,14 @@ export const Title = styled.Text`
   color: ${(props) => props.theme.colors.shadeOne};
 `;
 
-export const AppPreviewImage = styled(Image)`
-  margin: 0 auto;
-  margin-top: 10%;
+export const AppPreviewImage = styled.View`
+  align-items: center;
+  justify-content: center;
+  /* background-color: blue; */
+  padding: 0px;
 `;
 
-export const Buttons = styled.View`
-  margin-top: 25%;
-`;
+export const Buttons = styled.View``;
 
 export const LoginButton = styled.TouchableOpacity`
   margin-top: 4%;
