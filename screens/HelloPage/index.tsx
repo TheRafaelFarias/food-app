@@ -127,7 +127,11 @@ const HelloPage: React.FC = () => {
 
               const color = scrollX.interpolate({
                 inputRange,
-                outputRange: ["#C4C4C4", "#0B735F", "#C4C4C4"],
+                outputRange: [
+                  theme.colors.shadeTwo,
+                  theme.colors.accent,
+                  theme.colors.shadeTwo,
+                ],
                 extrapolate: "clamp",
               });
 
