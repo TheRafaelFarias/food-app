@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 export const InputContainer = styled.View`
-  margin-top: 8%;
+  margin-bottom: 5%;
   flex-direction: column;
 `;
 

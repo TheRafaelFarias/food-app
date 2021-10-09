@@ -30,11 +30,10 @@ export const Form = styled.View`
   margin-top: -3%;
 `;
 
-export const Bottom = styled.View<{ height: number }>`
+export const Bottom = styled.KeyboardAvoidingView`
   align-items: center;
   position: absolute;
-  top: ${(props) => props.height - props.height * 0.3}px;
-  bottom: 0;
+  bottom: 20px;
   left: 0;
   right: 0;
 `;

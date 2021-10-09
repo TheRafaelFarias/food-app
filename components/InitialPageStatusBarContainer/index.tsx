@@ -1,25 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Image, Keyboard } from "react-native";
+import { useKeyboardStatus } from "../../hooks/useKeyboardStatus";
 import { StatusBarContainer } from "./styles";
 
 export const InitialPageStatusBarContainer: React.FC = () => {
-  useEffect(() => {
-    Keyboard.addListener("keyboardDidShow", keyboardUp);
-    Keyboard.addListener("keyboardDidHide", keyboardDown);
-
-    return () => {
-      Keyboard.removeListener("keyboardDidShow", keyboardUp);
-      Keyboard.removeListener("keyboardDidHide", keyboardDown);
-    };
-  }, []);
-
-  const [keyboardStatus, setKeyboardStatus] = useState(false);
-  const keyboardUp = () => setKeyboardStatus(true);
-
-  const keyboardDown = () => setKeyboardStatus(false);
+  const { isKeyboardOpen } = useKeyboardStatus()
 
   return (
-    <StatusBarContainer isKeyboardUp={keyboardStatus}>
+    <StatusBarContainer isKeyboardUp={isKeyboardOpen}>
       <Image
         style={{ width: 65, height: 45 }}
         source={require("../../assets/Logo.png")}

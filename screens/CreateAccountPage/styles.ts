@@ -6,10 +6,10 @@ export const Container = styled.SafeAreaView`
 `;
 
 export const ContentContainer = styled.View`
-  flex: 1;
   margin: 10%;
   margin-bottom: 0;
   justify-content: space-around;
+  height: 60%;
 `;
 
 export const Title = styled.Text`
@@ -27,13 +27,15 @@ export const Description = styled.Text`
 `;
 
 export const Form = styled.View`
-  margin-top: 5%;
   margin-bottom: 20%;
 `;
 
 export const Bottom = styled.View`
   align-items: center;
-  margin-bottom: 20%;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
 `;
 
 export const LoginButton = styled.TouchableOpacity`

@@ -1,34 +1,35 @@
-import React from "react";
 import { useNavigation } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
+import React from "react";
 import { TouchableOpacity, View } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
 import { RootStackParamList } from "../../App";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { ButtonText } from "../../components/ActionButton/styles";
 import { InitialPageStatusBarContainer } from "../../components/InitialPageStatusBarContainer";
 import { TextInput } from "../../components/TextInput";
 import { theme } from "../../globals";
+import { useKeyboardStatus } from "../../hooks/useKeyboardStatus";
 import {
+  Bottom,
   Container,
-  Title,
-  Description,
   ContentContainer,
+  Description,
   Form,
   LoginButton,
-  Bottom,
+  Title,
 } from "./styles";
 
 type Props = StackNavigationProp<RootStackParamList, "CreateAccountPage">;
 
 const CreateAccountPage: React.FC = () => {
   const navigation = useNavigation<Props>();
+  const { isKeyboardOpen } = useKeyboardStatus();
 
   return (
     <Container>
-      <ScrollView>
-        <InitialPageStatusBarContainer />
-        <ContentContainer>
+      <InitialPageStatusBarContainer />
+      <ContentContainer>
+        {!isKeyboardOpen && (
           <View>
             <Title>Create an account</Title>
             <Description>
@@ -36,28 +37,30 @@ const CreateAccountPage: React.FC = () => {
               food.
             </Description>
           </View>
-          <Form>
-            <TextInput title="Email Address" placeholder="Enter email" />
-            <TextInput title="Password" placeholder="Enter password" />
-            <TextInput
-              title="Confirm password"
-              placeholder="Confirm password"
-            />
-          </Form>
-          <Bottom>
-            <TouchableOpacity>
-              <ActionButton onPress={() => navigation.replace("HomePage")}>
-                <ButtonText>Create an account</ButtonText>
-              </ActionButton>
-            </TouchableOpacity>
-            <LoginButton onPress={() => navigation.replace("LoginPage")}>
-              <ButtonText color={theme.colors.primary}>
-                Login to my account
-              </ButtonText>
-            </LoginButton>
-          </Bottom>
-        </ContentContainer>
-      </ScrollView>
+        )}
+        <Form>
+          <TextInput title="Email Address" placeholder="Enter email" />
+          <TextInput title="Password" placeholder="Enter password" />
+          <TextInput title="Confirm password" placeholder="Confirm password" />
+        </Form>
+      </ContentContainer>
+      <Bottom>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.replace("HomePage")}
+        >
+          <ActionButton onPress={() => navigation.replace("HomePage")}>
+            <ButtonText>Create an account</ButtonText>
+          </ActionButton>
+        </TouchableOpacity>
+        {!isKeyboardOpen && (
+          <LoginButton onPress={() => navigation.replace("LoginPage")}>
+            <ButtonText color={theme.colors.primary}>
+              Login to my account
+            </ButtonText>
+          </LoginButton>
+        )}
+      </Bottom>
     </Container>
   );
 };
