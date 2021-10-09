@@ -1,3 +1,4 @@
+import { Shadow } from "react-native-shadow-2";
 import styled from "styled-components/native";
 
 export const Container = styled.SafeAreaView`
@@ -82,4 +83,23 @@ export const OrderButtonText = styled.Text`
   font-weight: bold;
   text-align: center;
   color: white;
+`;
+
+export const Footer = styled.View`
+  padding: 10px;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  border-top-left-radius: 25px;
+  position: absolute;
+  border-top-right-radius: 25px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+`;
+
+export const FooterIcon = styled.Image`
+  width: 30px;
+  height: 30px;
 `;

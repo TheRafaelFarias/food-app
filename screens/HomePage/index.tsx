@@ -1,9 +1,14 @@
+import { useNavigation } from "@react-navigation/core";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
-import Navbar from "../../components/Navbar";
-import { Dimensions, Text, View } from "react-native";
-import { StyledText } from "../../common";
-import { HomePageCategories, ICategoryData } from "../../data";
+import { Text, useWindowDimensions, View } from "react-native";
 import { Shadow } from "react-native-shadow-2";
+import { RootStackParamList } from "../../App";
+import { StyledText } from "../../common";
+import Navbar from "../../components/Navbar";
+import { HomePageCategories, ICategoryData } from "../../data";
+import { theme } from "../../globals";
 import {
   CategorySelector,
   CategorySelectorContainer,
@@ -14,18 +19,16 @@ import {
   FoodOptions,
   FoodOptionShadowWrapper,
   FoodOptionWrapper,
-  PageContent,
+  Footer,
+  FooterIcon,
   OrderButton,
   OrderButtonText,
+  PageContent,
 } from "./styles";
-import { useNavigation } from "@react-navigation/core";
-import { RootStackParamList } from "../../App";
-import { StackNavigationProp } from "@react-navigation/stack";
 
-const { width } = Dimensions.get("screen");
-
-const HomePage: React.FC = () => {
+const HomePage = () => {
   const [categorySelected, setCategorySelected] = useState(0);
+  const { width } = useWindowDimensions();
 
   const renderFoodOption = (option: ICategoryData, index: number) => {
     return (
@@ -83,6 +86,36 @@ const HomePage: React.FC = () => {
           keyExtractor={(_, index) => index.toString()}
         />
       </PageContent>
+      <Shadow
+        distance={10}
+        startColor="rgba(61, 61, 61, 0.03)"
+        radius={25}
+        finalColor="transparent"
+        offset={[0, 50]}
+        size={[width, 50]}
+      />
+      <Footer>
+        <FooterIcon source={require("../../assets/Active/Home/Home.png")} />
+        <FooterIcon
+          source={require("../../assets/NotActive/Heart/Heart.png")}
+        />
+        <LinearGradient
+          colors={[theme.colors.gradientLeft, theme.colors.gradientRight]}
+          style={{
+            padding: 20,
+            borderRadius: 50,
+          }}
+        >
+          <FooterIcon
+            style={{ width: 20, height: 20 }}
+            source={require("../../assets/Active/Search/Search.png")}
+          />
+        </LinearGradient>
+        <FooterIcon
+          source={require("../../assets/NotActive/Notification/Notification.png")}
+        />
+        <FooterIcon source={require("../../assets/NotActive/Buy/Buy.png")} />
+      </Footer>
     </Container>
   );
 };
