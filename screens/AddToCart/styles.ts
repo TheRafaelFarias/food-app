@@ -1,9 +1,18 @@
 import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const PageWrapper = styled.ScrollView`
   height: 100%;
   background-color: ${(props) => props.theme.colors.background};
+`;
+
+export const Container = styled.View<{
+  isSmallDevice: boolean;
+  screenHeight: number;
+}>`
+  background-color: ${(props) => props.theme.colors.background};
+  height: ${(props) =>
+    props.isSmallDevice ? `${props.screenHeight + 70}px` : "120%"};
 `;
 
 export const PageContent = styled.View`
@@ -111,11 +120,10 @@ export const TappingsOptionText = styled.Text`
   color: ${(props) => props.theme.colors.text};
 `;
 
-export const Footer = styled.View<{ height: number }>`
+export const Footer = styled.View`
   align-items: center;
   position: absolute;
-  top: ${(props) => props.height - props.height * 0.26}px;
-  bottom: 0;
+  bottom: 20px;
   left: 0;
   right: 0;
 `;

@@ -1,25 +1,25 @@
-import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import React, { useState } from "react";
 import { Dimensions, Image, Pressable } from "react-native";
 import { RootStackParamList } from "../../App";
-import { BackIcon, StyledText, BackIconWrapper } from "../../common";
+import { BackIcon, BackIconWrapper, StyledText } from "../../common";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { ButtonText } from "../../components/ActionButton/styles";
 import {
+  ChangeButton,
   Container,
-  PageContent,
+  Footer,
+  FooterInformationsContainer,
   InformationsContainer,
   InformationText,
-  ChangeButton,
-  PaymentMethods,
+  PageContent,
   PaymentMethodOption,
-  PaymentTitle,
-  Footer,
-  PriceText,
-  FooterInformationsContainer,
-  TotalContainer,
   PaymentMethodOptionWrapper,
+  PaymentMethods,
+  PaymentTitle,
+  PriceText,
+  TotalContainer,
 } from "./styles";
 
 const { height } = Dimensions.get("screen");
@@ -27,8 +27,9 @@ const { height } = Dimensions.get("screen");
 const FinishOrder: React.FC = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const [paymentMethod, setPaymentMethod] =
-    useState<"mastercard" | "paypal" | "stripe">();
+  const [paymentMethod, setPaymentMethod] = useState<
+    "mastercard" | "paypal" | "stripe"
+  >();
 
   return (
     <Container>
@@ -83,28 +84,28 @@ const FinishOrder: React.FC = () => {
             />
           </PaymentMethodOptionWrapper>
         </PaymentMethods>
-        <Footer height={Number(height.toFixed())}>
-          <FooterInformationsContainer>
-            <InformationsContainer>
-              <InformationText setWidth>Delivery fee:</InformationText>
-              <PriceText>$20</PriceText>
-            </InformationsContainer>
-            <InformationsContainer>
-              <InformationText setWidth>Subtotal:</InformationText>
-              <PriceText>$360</PriceText>
-            </InformationsContainer>
-            <TotalContainer>
-              <InformationText>Total:</InformationText>
-              <PriceText>$380</PriceText>
-            </TotalContainer>
-          </FooterInformationsContainer>
-          <Pressable onPress={() => navigation.push("CardInformations")}>
-            <ActionButton>
-              <ButtonText>Finish order</ButtonText>
-            </ActionButton>
-          </Pressable>
-        </Footer>
       </PageContent>
+      <Footer>
+        <FooterInformationsContainer>
+          <InformationsContainer>
+            <InformationText setWidth>Delivery fee:</InformationText>
+            <PriceText>$20</PriceText>
+          </InformationsContainer>
+          <InformationsContainer>
+            <InformationText setWidth>Subtotal:</InformationText>
+            <PriceText>$360</PriceText>
+          </InformationsContainer>
+          <TotalContainer>
+            <InformationText>Total:</InformationText>
+            <PriceText>$380</PriceText>
+          </TotalContainer>
+        </FooterInformationsContainer>
+        <Pressable onPress={() => navigation.push("CardInformations")}>
+          <ActionButton>
+            <ButtonText>Finish order</ButtonText>
+          </ActionButton>
+        </Pressable>
+      </Footer>
     </Container>
   );
 };

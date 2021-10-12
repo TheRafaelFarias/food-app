@@ -61,11 +61,10 @@ export const PaymentMethodOption = styled.Image`
   margin-top: -15px;
 `;
 
-export const Footer = styled.View<{ height: number }>`
+export const Footer = styled.View`
   align-items: center;
   position: absolute;
-  top: ${(props) => props.height - props.height * 0.35}px;
-  bottom: 0;
+  bottom: 15px;
   left: 0;
   right: 0;
 `;

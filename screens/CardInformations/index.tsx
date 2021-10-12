@@ -1,6 +1,6 @@
-import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import React from "react";
 import { Dimensions, Pressable, View } from "react-native";
 import { RootStackParamList } from "../../App";
 import { BackIcon, StyledText } from "../../common";
@@ -50,14 +50,14 @@ const CardInformations: React.FC = () => {
             />
           </InputContainer>
         </View>
-        <Footer height={Number(height.toFixed())}>
-          <Pressable onPress={() => navigation.push("SuccessfullyPayment")}>
-            <ActionButton>
-              <ButtonText>Next step</ButtonText>
-            </ActionButton>
-          </Pressable>
-        </Footer>
       </PageContent>
+      <Footer>
+        <Pressable onPress={() => navigation.push("SuccessfullyPayment")}>
+          <ActionButton>
+            <ButtonText>Next step</ButtonText>
+          </ActionButton>
+        </Pressable>
+      </Footer>
     </Container>
   );
 };

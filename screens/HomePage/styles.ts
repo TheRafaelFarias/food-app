@@ -1,8 +1,16 @@
-import { Shadow } from "react-native-shadow-2";
 import styled from "styled-components/native";
 
-export const Container = styled.SafeAreaView`
+export const PageWrapper = styled.ScrollView`
   height: 100%;
+  background-color: ${(props) => props.theme.colors.background};
+`
+
+export const Container = styled.SafeAreaView<{
+  screenHeight: number;
+  isSmallDevice: boolean;
+}>`
+  height: ${(props) =>
+    props.isSmallDevice ? `${props.screenHeight + 75}px` : "100%"};
   background-color: ${(props) => props.theme.colors.background};
 `;
 
@@ -87,16 +95,14 @@ export const OrderButtonText = styled.Text`
 
 export const Footer = styled.View`
   padding: 10px;
+  padding-right: 25px;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   background-color: white;
   border-top-left-radius: 25px;
-  position: absolute;
   border-top-right-radius: 25px;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  width: 100%;
 `;
 
 export const FooterIcon = styled.Image`

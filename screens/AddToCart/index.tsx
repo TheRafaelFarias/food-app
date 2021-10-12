@@ -1,31 +1,38 @@
-import React, { useState } from "react";
+import { AntDesign } from "@expo/vector-icons";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { Dimensions, Image, Pressable, Text } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import React, { useState } from "react";
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  Text,
+  useWindowDimensions,
+} from "react-native";
 import { Shadow } from "react-native-shadow-2";
 import { RootStackParamList } from "../../App";
 import { StyledText } from "../../common";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { ButtonText } from "../../components/ActionButton/styles";
-import { AntDesign } from "@expo/vector-icons";
+import Navbar from "../../components/Navbar";
 import { theme } from "../../globals";
-import { StackNavigationProp } from "@react-navigation/stack";
 import {
   Container,
-  PageContent,
-  FoodOptionImageWrapper,
-  FoodOptionDescription,
-  Footer,
-  FoodInformations,
-  FoodInformation,
   CounterButtonContainer,
-  CounterButtonWrapper,
   CounterButtonText,
+  CounterButtonWrapper,
+  FoodInformation,
+  FoodInformations,
+  FoodOptionDescription,
+  FoodOptionImageWrapper,
+  Footer,
+  PageContent,
+  PageWrapper,
   TappingsContainer,
   TappingsOption,
-  TappingsOptionText,
   TappingsOptions,
+  TappingsOptionText,
 } from "./styles";
-import Navbar from "../../components/Navbar";
 
 const { height } = Dimensions.get("screen");
 
@@ -70,6 +77,7 @@ const AddToCart: React.FC = () => {
     useNavigation<StackNavigationProp<RootStackParamList, "AddToCart">>();
   const router = useRoute<RouteProp<RootStackParamList, "AddToCart">>();
   const { title, source, description, tappings } = router.params.data;
+  const { height, width } = useWindowDimensions();
 
   const [selectedTappings, setSelectedTappings] = useState<
     Map<number, boolean>
@@ -123,51 +131,55 @@ const AddToCart: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Navbar buttonType="back" />
-      <PageContent>
-        <Shadow
-          distance={10}
-          startColor="rgba(61, 61, 61, 0.03)"
-          radius={10}
-          finalColor="transparent"
-          offset={[0, 20]}
-          size={[250, 235]}
-        >
-          <FoodOptionImageWrapper>
-            <Image
-              source={{ uri: source }}
-              style={{ width: 150, height: 150 }}
-            />
-          </FoodOptionImageWrapper>
-        </Shadow>
-        <CounterButton />
-        <StyledText center>{title}</StyledText>
-        <FoodOptionDescription>{parsedDescription}</FoodOptionDescription>
-        <FoodInformations>
-          <FoodInformation size="small">
-            <AntDesign size={20} name="star" color="#F5A62E" />
-            <StyledText small>4+</StyledText>
-          </FoodInformation>
-          <FoodInformation size="normal">
-            <Text>🔥</Text>
-            <StyledText small>300cal</StyledText>
-          </FoodInformation>
-          <FoodInformation size="big">
-            <Text>⏰</Text>
-            <StyledText small>5-10min</StyledText>
-          </FoodInformation>
-        </FoodInformations>
-        <TappingsContainer>{renderTappings()}</TappingsContainer>
-        <Footer height={Number(height.toFixed())}>
-          <Pressable onPress={() => navigation.push("Cart")}>
-            <ActionButton>
-              <ButtonText>Add to cart</ButtonText>
-            </ActionButton>
-          </Pressable>
-        </Footer>
-      </PageContent>
-    </Container>
+    <>
+      <PageWrapper>
+        <Container isSmallDevice={width < 375} screenHeight={height}>
+          <Navbar buttonType="back" />
+          <PageContent>
+            <Shadow
+              distance={10}
+              startColor="rgba(61, 61, 61, 0.03)"
+              radius={10}
+              finalColor="transparent"
+              offset={[0, 20]}
+              size={[250, 235]}
+            >
+              <FoodOptionImageWrapper>
+                  <Image
+                    source={{ uri: source }}
+                    style={{ width: 150, height: 150 }}
+                  />
+              </FoodOptionImageWrapper>
+            </Shadow>
+            <CounterButton />
+            <StyledText center>{title}</StyledText>
+            <FoodOptionDescription>{parsedDescription}</FoodOptionDescription>
+            <FoodInformations>
+              <FoodInformation size="small">
+                <AntDesign size={20} name="star" color="#F5A62E" />
+                <StyledText small>4+</StyledText>
+              </FoodInformation>
+              <FoodInformation size="normal">
+                <Text>🔥</Text>
+                <StyledText small>300cal</StyledText>
+              </FoodInformation>
+              <FoodInformation size="big">
+                <Text>⏰</Text>
+                <StyledText small>5-10min</StyledText>
+              </FoodInformation>
+            </FoodInformations>
+            <TappingsContainer>{renderTappings()}</TappingsContainer>
+          </PageContent>
+        </Container>
+      </PageWrapper>
+      <Footer>
+        <Pressable onPress={() => navigation.push("Cart")}>
+          <ActionButton>
+            <ButtonText>Add to cart</ButtonText>
+          </ActionButton>
+        </Pressable>
+      </Footer>
+    </>
   );
 };
 

@@ -53,13 +53,12 @@ const HelloPage: React.FC = () => {
             showsHorizontalScrollIndicator={false}
             snapToInterval={ITEM_SIZE}
             snapToAlignment="start"
-            style={{ width: "100%" }}
             onScroll={Animated.event(
               [{ nativeEvent: { contentOffset: { x: scrollX } } }],
               { useNativeDriver: false }
             )}
             contentContainerStyle={{
-              width: window.width * 2.5,
+              width: window.width + ITEM_SIZE * 2,
               alignItems: "center",
               justifyContent: "center",
             }}
