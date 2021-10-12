@@ -16,11 +16,10 @@ export const PageContent = styled.View`
   padding: 0px 24px;
 `;
 
-export const Footer = styled.View<{ height: number }>`
+export const Footer = styled.View`
   align-items: center;
   position: absolute;
-  top: ${(props) => props.height - props.height * 0.225}px;
-  bottom: 0;
+  bottom: 20px;
   left: 0;
   right: 0;
 `;

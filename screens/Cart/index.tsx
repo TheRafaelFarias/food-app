@@ -1,11 +1,12 @@
-import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import React, { useState } from "react";
 import { Dimensions, Image, Pressable } from "react-native";
 import { RootStackParamList } from "../../App";
 import { StyledText } from "../../common";
 import { ActionButton } from "../../components/ActionButton/ActionButton";
 import { ButtonText } from "../../components/ActionButton/styles";
+import Navbar from "../../components/Navbar";
 import {
   CartItemInformations,
   CartItemPrice,
@@ -23,7 +24,6 @@ import {
   TotalPriceContainer,
   TotalPriceText,
 } from "./styles";
-import Navbar from "../../components/Navbar";
 
 const { height } = Dimensions.get("screen");
 
@@ -91,14 +91,14 @@ const Cart: React.FC = () => {
           <TotalPriceText>Total:</TotalPriceText>
           <TotalPrice>$356</TotalPrice>
         </TotalPriceContainer>
-        <Footer height={Number(height.toFixed())}>
-          <Pressable onPress={() => navigation.push("FinishOrder")}>
-            <ActionButton>
-              <ButtonText>Next step</ButtonText>
-            </ActionButton>
-          </Pressable>
-        </Footer>
       </PageContent>
+      <Footer>
+        <Pressable onPress={() => navigation.push("FinishOrder")}>
+          <ActionButton>
+            <ButtonText>Next step</ButtonText>
+          </ActionButton>
+        </Pressable>
+      </Footer>
     </Container>
   );
 };

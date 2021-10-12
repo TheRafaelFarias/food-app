@@ -2,8 +2,9 @@ import { useNavigation } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
-import { Text, useWindowDimensions, View } from "react-native";
+import { ScrollView, Text, useWindowDimensions, View } from "react-native";
 import { Shadow } from "react-native-shadow-2";
+import { SharedElement } from "react-navigation-shared-element";
 import { RootStackParamList } from "../../App";
 import { StyledText } from "../../common";
 import Navbar from "../../components/Navbar";
@@ -24,11 +25,12 @@ import {
   OrderButton,
   OrderButtonText,
   PageContent,
+  PageWrapper,
 } from "./styles";
 
 const HomePage = () => {
   const [categorySelected, setCategorySelected] = useState(0);
-  const { width } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
 
   const renderFoodOption = (option: ICategoryData, index: number) => {
     return (
@@ -44,79 +46,95 @@ const HomePage = () => {
   };
 
   return (
-    <Container>
-      <Navbar buttonType="menu" />
-      <PageContent>
-        <StyledText>Enjoy delicous food</StyledText>
-        <CategorySelectorContainer
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        >
-          {HomePageCategories.map((category, index) => {
-            return (
-              <CategorySelectorWrapper
-                key={index}
-                selected={index == categorySelected}
-                first={index == 0}
-                onPress={() => setCategorySelected(index)}
-              >
-                <CategorySelector selected={index == categorySelected}>
-                  <Text>{category.icon}</Text>
-                  <Text>{category.title}</Text>
-                </CategorySelector>
-              </CategorySelectorWrapper>
-            );
-          })}
-        </CategorySelectorContainer>
-        <StyledText small>Popular restaurants</StyledText>
-        <FoodOptions
-          showsHorizontalScrollIndicator={false}
-          data={HomePageCategories[categorySelected].data}
-          horizontal
-          renderItem={({ item, index }) =>
-            renderFoodOption(item as ICategoryData, index)
-          }
-          ListEmptyComponent={() => (
-            <View style={{ alignItems: "center", width, paddingRight: 24 }}>
-              <StyledText small normal>
-                No restaurant with this option
-              </StyledText>
-            </View>
-          )}
-          keyExtractor={(_, index) => index.toString()}
-        />
-      </PageContent>
+    <>
+      <PageWrapper>
+        <Container isSmallDevice={width < 375} screenHeight={height}>
+          <Navbar buttonType="menu" />
+          <PageContent>
+            <StyledText>Enjoy delicous food</StyledText>
+            <CategorySelectorContainer
+              horizontal
+              showsHorizontalScrollIndicator={false}
+            >
+              {HomePageCategories.map((category, index) => {
+                return (
+                  <CategorySelectorWrapper
+                    key={index}
+                    selected={index == categorySelected}
+                    first={index == 0}
+                    onPress={() => setCategorySelected(index)}
+                  >
+                    <CategorySelector selected={index == categorySelected}>
+                      <Text>{category.icon}</Text>
+                      <Text>{category.title}</Text>
+                    </CategorySelector>
+                  </CategorySelectorWrapper>
+                );
+              })}
+            </CategorySelectorContainer>
+            <StyledText small>Popular restaurants</StyledText>
+            <FoodOptions
+              showsHorizontalScrollIndicator={false}
+              data={HomePageCategories[categorySelected].data}
+              horizontal
+              renderItem={({ item, index }) =>
+                renderFoodOption(item as ICategoryData, index)
+              }
+              ListEmptyComponent={() => (
+                <View style={{ alignItems: "center", width, paddingRight: 24 }}>
+                  <StyledText small normal>
+                    No restaurant with this option
+                  </StyledText>
+                </View>
+              )}
+              keyExtractor={(_, index) => index.toString()}
+            />
+          </PageContent>
+        </Container>
+      </PageWrapper>
       <Shadow
         distance={10}
-        startColor="rgba(61, 61, 61, 0.03)"
+        startColor="rgba(61, 61, 61, 0.05)"
         radius={25}
         finalColor="transparent"
-        offset={[0, 50]}
+        offset={[0, -5]}
         size={[width, 50]}
-      />
-      <Footer>
-        <FooterIcon source={require("../../assets/Active/Home/Home.png")} />
-        <FooterIcon
-          source={require("../../assets/NotActive/Heart/Heart.png")}
-        />
-        <LinearGradient
-          colors={[theme.colors.gradientLeft, theme.colors.gradientRight]}
-          style={{
-            padding: 20,
-            borderRadius: 50,
-          }}
-        >
+        containerViewStyle={{
+          position: "absolute",
+          borderTopLeftRadius: 25,
+          borderTopRightRadius: 25,
+          bottom: 1,
+          flexDirection: "row",
+          backgroundColor: "white",
+          width: "100%",
+          left: 0,
+          right: 0,
+        }}
+      >
+        <Footer>
+          <FooterIcon source={require("../../assets/Active/Home/Home.png")} />
           <FooterIcon
-            style={{ width: 20, height: 20 }}
-            source={require("../../assets/Active/Search/Search.png")}
+            source={require("../../assets/NotActive/Heart/Heart.png")}
           />
-        </LinearGradient>
-        <FooterIcon
-          source={require("../../assets/NotActive/Notification/Notification.png")}
-        />
-        <FooterIcon source={require("../../assets/NotActive/Buy/Buy.png")} />
-      </Footer>
-    </Container>
+          <LinearGradient
+            colors={[theme.colors.gradientLeft, theme.colors.gradientRight]}
+            style={{
+              padding: 20,
+              borderRadius: 50,
+            }}
+          >
+            <FooterIcon
+              style={{ width: 20, height: 20 }}
+              source={require("../../assets/Active/Search/Search.png")}
+            />
+          </LinearGradient>
+          <FooterIcon
+            source={require("../../assets/NotActive/Notification/Notification.png")}
+          />
+          <FooterIcon source={require("../../assets/NotActive/Buy/Buy.png")} />
+        </Footer>
+      </Shadow>
+    </>
   );
 };
 
@@ -150,10 +168,12 @@ const FoodOption = ({
         size={[195, 295]}
       >
         <FoodOptionWrapper activeOpacity={0.8}>
-          <FoodImage
-            source={{ uri: imageSource }}
-            style={{ width: 150, height: 150 }}
-          />
+          <SharedElement id={title.toLowerCase()}>
+            <FoodImage
+              source={{ uri: imageSource }}
+              style={{ width: 150, height: 150 }}
+            />
+          </SharedElement>
           <StyledText small center>
             {title}
           </StyledText>

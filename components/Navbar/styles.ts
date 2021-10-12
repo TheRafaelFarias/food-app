@@ -4,7 +4,6 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin-top: 3%;
 `;
 
 export const DeliveryContainer = styled.View`
